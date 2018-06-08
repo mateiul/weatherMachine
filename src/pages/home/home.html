@@ -1,17 +1,40 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Home</ion-title>
+    <ion-title text-center>Home</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+<ion-content padding class="list-avatar-page" class="home">
+
+  <ion-list>
+      <ion-list-header text-center><strong>Current Location</strong></ion-list-header>
+    
+    <ion-item (click)="showDetail($event, currentWeather, currentWeather.name )" *ngIf="currentWeather">
+        <ion-avatar item-start>
+            <img src="http://openweathermap.org/img/w/{{ currentWeather.weather[0].icon}}.png">
+        </ion-avatar>
+        <h2>{{ currentWeather.main.temp | number:'2.0-0' }}&deg; </h2>
+        <p> {{ currentWeather.name }}</p>
+        <ion-note item-end>
+            Refreshed at:{{ currentWeather.dt * 1000 | date:'shortTime' }}  
+        </ion-note>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+      <ion-list-header text-center><strong>Favorites</strong></ion-list-header>
+    
+    <ng-container *ngIf="favoriteLocations">
+        <ion-item (click)="showDetail($event, favorite.weather, favorite.name)" *ngFor="let favorite of favoriteLocations">
+            <ion-avatar item-start>
+                <img src="http://openweathermap.org/img/w/{{ favorite.weather.weather[0].icon}}.png">
+            </ion-avatar>
+            <h2>{{ favorite.weather.main.temp | number:'2.0-0' }}&deg; </h2>
+            <p> {{ favorite.name }}</p>
+            <ion-note item-end>
+                Refreshed at: {{ favorite.weather.dt * 1000 | date:'shortTime' }}
+            </ion-note>
+        </ion-item>
+    </ng-container>
+  </ion-list>
 </ion-content>

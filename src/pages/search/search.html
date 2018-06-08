@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title text-center>
+      Search city
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding  class="search">
+  <ion-searchbar (ionInput)="searchCities($event, searchKey)"></ion-searchbar>
+  <ion-list>
+    <ion-item *ngFor="let city of cities" (click)="showDetail($event, city)">
+      {{ city.description }}
+    </ion-item>
+  </ion-list>
+</ion-content>
